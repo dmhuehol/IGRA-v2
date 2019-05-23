@@ -1,5 +1,5 @@
 # IGRA v2
-The [Integrated Global Radiosonde Archive version 2](https://www.ncdc.noaa.gov/data-access/weather-balloon/integrated-global-radiosonde-archive) is a global archive of quality-controlled radiosonde observations dating back to the early 1900s. This repository contains code to import the data into MATLAB as a consistently-formatted structure array usable by other functions for plotting and analysis.
+The [Integrated Global Radiosonde Archive version 2](https://www.ncdc.noaa.gov/data-access/weather-balloon/integrated-global-radiosonde-archive) is a global archive of quality-controlled radiosonde observations dating back to the early 1900s. This repository contains code to import the data into MATLAB as a consistently-formatted structure array usable by other functions for plotting and analysis. This code has been tested on MATLAB 2017b+.
 
 ## General workflow
 1. Obtain a data file from the IGRA v2 archive: ftp://ftp.ncdc.noaa.gov/pub/data/igra/data/data-por/
