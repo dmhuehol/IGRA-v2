@@ -1,1 +1,4 @@
 *.asv
+*.txt
+*.zip
+.DS_Store
