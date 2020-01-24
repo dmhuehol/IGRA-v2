@@ -2,3 +2,5 @@
 *.txt
 *.zip
 .DS_Store
+*.rtf
+*.m~
