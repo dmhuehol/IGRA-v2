@@ -1,21 +1,21 @@
 %%TTwvZ_kft
-    %Function to plot the height profile of temperature and wetbulb temperature
-    %given an input date and soundings structure. Additionally, allows for
-    %user control of the maximum height plotted. Height is plotted in both
-    %km and in kilofeet. Written for aircraft flight planning support
+    %Function to plot the height profile in km and kFt of temperature and
+    %wetbulb temperature. Written for aircraft flight planning support
     %during NASA IMPACTS 2020 deployment.
     %
-    %General form: [f] = TTwvZ_kft(sounding,kmTop)
+    %General form: [f] = TTwvZ_kft(sounding,y,m,d,h,kmTop,locString)
     %
     %Output
     %f: the figure handle
     %
     %Inputs
     %sounding: a TABLE of soundings data as imported from U Wyo files
+    %y: four digit year, defaults to 2020
+    %m: one or two digit month, defaults to 1
+    %d: one or two digit day, defaults to 25
+    %h: one or two digit hour, defaults to 18
     %kmTop: OPTIONAL INPUT maximum km to plot. Defaults to 13km.
-    %NOTE: dateString and launchname are controlled WITHIN code and not at
-    %the inputs for now.
-    %
+    %locString: a string for location, defaults to 'Albany'
     %
     %Version Date: 1/24/2020
     %Last major revision: 1/24/2020
@@ -26,7 +26,24 @@
     %See also wetbulb
     %
 
-function [f] = TTwvZ_kft(sounding,kmTop)
+function [f] = TTwvZ_kft(sounding,y,m,d,h,locString,kmTop)
+if nargin~=7
+    disp('Number of inputs is incorrect! Assuming the following default values:')
+    y = 2020;
+    m = 1;
+    d = 25;
+    h = 18;
+    locString = 'Albany, NY';
+    kmTop = 9;
+end
+
+disp(['Year: ' num2str(y)])
+disp(['Month: ' num2str(m)])
+disp(['Day: ' num2str(d)])
+disp(['Hour: ' num2str(h)])
+disp(['Location: ' locString])
+disp(['Maximum height: ' num2str(kmTop)])
+
 % Confine all data to between surface and maximum requested height
 useHeight = sounding.height;
 useHeight = useHeight./1000;
@@ -95,8 +112,8 @@ set(ax,'XTick',[-80 -75 -70 -65 -60 -55 -50 -45 -40 -35 -30 -25 -20 -15 -10 -5 -
 
 leg = legend('Temperature','Freezing','Wetbulb');
 leg.FontSize = 14;
-dateString = datestr(datenum(2020,1,24,0,0,0),'mmm dd, yyyy HH UTC'); %For title
-launchname = 'Albany';
+dateString = datestr(datenum(y,m,d,h,0,0),'mmm dd, yyyy HH UTC'); %For title
+launchname = locString;
 t = title({['Sounding for ' dateString],launchname});
 t.FontSize = 16;
 xLab = xlabel([char(176) 'C']);
@@ -114,19 +131,5 @@ end
 % xlim([minLim-1 maxLim+1])
 xlim([-30 maxLim+1])
 %xlim([-12,5])
-%Max air temperature will always be greater than max wetbulb temperature:
-%Either both have been recorded, in which case air temperature is always
-%greater than wetbulb by definition, or air temperature stopped recording,
-%in which case the wetbulb cannot be calculated anyway.
-    
-% Common settings for making poster graphics from Long Island
-%set(ax,'XTick',[-30 -15 -10 -6 -4 -3 -2 -1 0 1 2 3 4 6 10 15])
-%xlim([-10 16]) %Typical to fix axis for poster graphics; this usually covers most cases from Long Island
-
-% Optional save options
-%print(f,'-dpng','-r300')
-% set(f,'PaperPositionMode','manual')
-% set(f,'PaperUnits','inches','PaperPosition',[0 0 9 9])
-% print(f,'-dpng','-r400')
 
 end
