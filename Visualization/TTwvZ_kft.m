@@ -10,12 +10,7 @@
     %
     %Inputs
     %sounding: a TABLE of soundings data as imported from U Wyo files
-    %y: four digit year, defaults to 2020
-    %m: one or two digit month, defaults to 1
-    %d: one or two digit day, defaults to 25
-    %h: one or two digit hour, defaults to 18
     %kmTop: OPTIONAL INPUT maximum km to plot. Defaults to 13km.
-    %locString: a string for location, defaults to 'Albany'
     %
     %Version Date: 1/24/2020
     %Last major revision: 1/24/2020
@@ -23,7 +18,7 @@
     %North Carolina State University
     %Undergraduate Research Assistant at Environment Analytics
     %
-    %See also wetbulb
+    %See also wetbulb, importImpacts, stationLookupIMPACTS
     %
 
 function [f] = TTwvZ_kft(sounding,kmTop)
@@ -101,7 +96,8 @@ set(ax,'XTick',[-80 -75 -70 -65 -60 -55 -50 -45 -40 -35 -30 -25 -20 -15 -10 -5 -
 leg = legend('Temperature','Freezing','Wetbulb');
 leg.FontSize = 14;
 dateString = datestr(sounding.Properties.CustomProperties.valid_date_num,'mmm dd, yyyy HH UTC'); %For title
-t = title({['Sounding for ' dateString],sounding.Properties.CustomProperties.launch_site});
+launchSite = stationLookupIMPACTS(sounding.Properties.CustomProperties.launch_site);
+t = title({['Sounding for ' dateString],launchSite});
 t.FontSize = 16;
 xLab = xlabel([char(176) 'C']);
 xLab.FontSize = 16;
