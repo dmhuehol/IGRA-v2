@@ -5,19 +5,17 @@
     %km and in kilofeet. Written for aircraft flight planning support
     %during NASA IMPACTS 2020 deployment.
     %
-    %General form: [foundit] = TTwvZ(y,m,d,t,sounding,kmTop)
+    %General form: [f] = TTwvZ_kft(sounding,kmTop)
     %
     %Output
-    %foundit: the index of the sounding corresponding to the time
+    %f: the figure handle
     %
     %Inputs
-    %y: four digit year
-    %m: two digit month
-    %d: one or two digit day
-    %t: one or two digit time
-    %sounding: a structure of soundings data with wetbulb temperature
-    %kmTop: OPTIONAL INPUT maximum km to plot. Defaults to 13km melting
-    %layers at Long Island are always within 5km of surface.    %
+    %sounding: a TABLE of soundings data as imported from U Wyo files
+    %kmTop: OPTIONAL INPUT maximum km to plot. Defaults to 13km.
+    %NOTE: dateString and launchname are controlled WITHIN code and not at
+    %the inputs for now.
+    %
     %
     %Version Date: 1/24/2020
     %Last major revision: 1/24/2020
@@ -25,10 +23,10 @@
     %North Carolina State University
     %Undergraduate Research Assistant at Environment Analytics
     %
-    %See also wetbulb, addWetbulb
+    %See also wetbulb
     %
 
-function [foundit] = TTwvZ_kft(sounding,kmTop)
+function [f] = TTwvZ_kft(sounding,kmTop)
 % Confine all data to between surface and maximum requested height
 useHeight = sounding.height;
 useHeight = useHeight./1000;
