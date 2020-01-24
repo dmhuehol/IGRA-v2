@@ -1,5 +1,5 @@
-function impacts = importImpacts(filename)
-%%importWyo
+function [impacts] = importImpacts(filename)
+%%importImpacts
     %Import a SINGLE sounding file in IMPACTS/UWyo format.
     %Only pressure, height, temperature, and dewpoint data are imported.
     %General form: [impacts] = importImpacts(filename);
@@ -34,28 +34,18 @@ dashBlock = strfind(rawChar,denoteStart);
 dataStart = dashBlock(2)+77;
 dataEnd = strfind(rawChar,denoteEnd);
 
-
-%% Open the text file.
-%fileID = fopen(filename,'r');
-
-%% Read columns of data according to the format.
-% This call is based on the structure of the file used to generate this
-% code. If an error occurs for a different file, try regenerating the code
-% from the Import Tool.
-%dataArray = textscan(fileID, formatSpec, endRow(1)-startRow(1)+1, 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'HeaderLines', startRow(1)-1, 'ReturnOnError', false, 'EndOfLine', '\r\n');
-%for block=2:length(startRow)
-%    frewind(fileID);
-%    dataArrayBlock = textscan(fileID, formatSpec, endRow(block)-startRow(block)+1, 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'HeaderLines', startRow(block)-1, 'ReturnOnError', false, 'EndOfLine', '\r\n');
-%    for col=1:length(dataArray)
-%        dataArray{col} = [dataArray{col};dataArrayBlock{col}];
-%    end
-%end
-
-%% Close the text file.
-%fclose(fileID);
-
 %% Create output variable
 dataArray = textscan(rawChar(dataStart:dataEnd), formatSpec,'Delimiter','','WhiteSpace','','TextType','string','EndOfLine','\r\n');
 impacts = table(dataArray{1:end-1}, 'VariableNames', {'pressure','height','temp','dewpt'});
+
+%% Attach metadata to table
+date_string = filename(19:30);
+valid_date_num = datenum(date_string,'YYYYMMDDHH');
+launch_site = filename(32:34);
+impacts = addprop(impacts,{'date_string','valid_date_num','launch_site'},{'table','table','table'});
+impacts.Properties.CustomProperties.date_string = date_string;
+impacts.Properties.CustomProperties.valid_date_num = valid_date_num;
+impacts.Properties.CustomProperties.launch_site = launch_site;
+
 end
 

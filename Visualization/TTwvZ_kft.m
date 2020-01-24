@@ -3,7 +3,7 @@
     %wetbulb temperature. Written for aircraft flight planning support
     %during NASA IMPACTS 2020 deployment.
     %
-    %General form: [f] = TTwvZ_kft(sounding,y,m,d,h,kmTop,locString)
+    %General form: [f] = TTwvZ_kft(sounding,kmTop)
     %
     %Output
     %f: the figure handle
@@ -26,22 +26,10 @@
     %See also wetbulb
     %
 
-function [f] = TTwvZ_kft(sounding,y,m,d,h,locString,kmTop)
-if nargin~=7
-    disp('Number of inputs is incorrect! Assuming the following default values:')
-    y = 2020;
-    m = 1;
-    d = 25;
-    h = 18;
-    locString = 'Albany, NY';
-    kmTop = 9;
-end
+function [f] = TTwvZ_kft(sounding,kmTop)
 
-disp(['Year: ' num2str(y)])
-disp(['Month: ' num2str(m)])
-disp(['Day: ' num2str(d)])
-disp(['Hour: ' num2str(h)])
-disp(['Location: ' locString])
+disp(['Date: ' datestr(sounding.Properties.CustomProperties.valid_date_num)])
+disp(['Location: ' sounding.Properties.CustomProperties.launch_site])
 disp(['Maximum height: ' num2str(kmTop)])
 
 % Confine all data to between surface and maximum requested height
@@ -112,9 +100,8 @@ set(ax,'XTick',[-80 -75 -70 -65 -60 -55 -50 -45 -40 -35 -30 -25 -20 -15 -10 -5 -
 
 leg = legend('Temperature','Freezing','Wetbulb');
 leg.FontSize = 14;
-dateString = datestr(datenum(y,m,d,h,0,0),'mmm dd, yyyy HH UTC'); %For title
-launchname = locString;
-t = title({['Sounding for ' dateString],launchname});
+dateString = datestr(sounding.Properties.CustomProperties.valid_date_num,'mmm dd, yyyy HH UTC'); %For title
+t = title({['Sounding for ' dateString],sounding.Properties.CustomProperties.launch_site});
 t.FontSize = 16;
 xLab = xlabel([char(176) 'C']);
 xLab.FontSize = 16;
