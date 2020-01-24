@@ -19,6 +19,7 @@ function [launchSite] = stationLookupIMPACTS(threeLetterSite)
     %Undergraduate Research Assistant at Environment Analytics
     %
     %
+    
 switch threeLetterSite
     case 'ALB'
         launchSite = 'Albany, NY';
