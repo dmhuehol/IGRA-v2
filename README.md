@@ -19,4 +19,6 @@ fullIGRAimpv2 is a simple wrapper for a bunch of smaller functions: importIGRAv2
 Except when specified elsewhere, code and documentation written by Daniel Hueholt under the advisement of Dr. Sandra Yuter at North Carolina State University.  
 [<img src="http://www.environmentanalytics.com/wp-content/uploads/2016/05/cropped-Environment_Analytics_Logo_Draft.png">](http://www.environmentanalytics.com)  
 
-Height calculation comes from Durre, I., & Yin, X. (2008). Enhanced radiosonde data for studies of vertical structure. Bulletin of the American Meteorological Society, 89(9), 1257-1262. Retrieved from [http://www.jstor.org/stable/26220887](http://www.jstor.org/stable/26220887)
+Height calculation comes from Durre, I., & Yin, X. (2008). Enhanced radiosonde data for studies of vertical structure. Bulletin of the American Meteorological Society, 89(9), 1257-1262. Retrieved from [http://www.jstor.org/stable/26220887](http://www.jstor.org/stable/26220887)  
+
+This code is licensed under the GNU General Public License, which is included in the repository as `COPYING.txt`. The full license can be viewed at [gnu.org/licenses/gpl-3.0.en.html](https://www.gnu.org/licenses/gpl-3.0.en.html).
